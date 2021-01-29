@@ -6,7 +6,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh_CN"><!--<![endif]-->
 <head>
     <meta charset="UTF-8">
-    <title>Java第一篇文章</title>
+    <title>Java基础-基本数据类型</title>
 
     <meta name="author" content="PC Qiu">
 
@@ -16,7 +16,7 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
 
-    <link rel="canonical" href="https://xpblog.github.io/2021/01/29/Java第一篇文章/">
+    <link rel="canonical" href="https://xpblog.github.io/2021/01/29/Java基础-基本数据类型/">
 
     
         <link rel="alternate" href="/atom.xml" type="application/atom+xml">
@@ -111,25 +111,44 @@
         <div>
     <article class="hentry" role="article">
         <header>
-            <h1 class="entry-title">Java第一篇文章</h1>
+            <h1 class="entry-title">Java基础-基本数据类型</h1>
             <p class="meta">
-                <time datetime="2021-01-29T03:01:43.000Z" data-updated="true">Fri Jan 29 2021</time>
+                <time datetime="2021-01-29T04:12:32.000Z" data-updated="true">Fri Jan 29 2021</time>
             </p>
         </header>
         <div class="entry-content">
-            <h2 id="Java-基础"><a href="#Java-基础" class="headerlink" title="Java 基础"></a>Java 基础</h2><p>Java基本数据类型</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">四类八种</span><br><span class="line">    整型:<span class="keyword">byte</span> <span class="keyword">short</span> <span class="keyword">int</span> <span class="keyword">long</span></span><br><span class="line">    浮点型:<span class="keyword">float</span> <span class="keyword">double</span></span><br><span class="line">    字符型:<span class="keyword">char</span></span><br><span class="line">    布尔型:<span class="keyword">boolean</span></span><br></pre></td></tr></table></figure>
-<p>​        <img src="/2021/01/29/Java%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/1001583.jpg"></p>
+            <h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><ul>
+<li>在Java中基本的数据类型  四类八种</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">整型:</span><br><span class="line">	<span class="keyword">byte</span> <span class="keyword">short</span> <span class="keyword">int</span> <span class="keyword">long</span></span><br><span class="line">浮点型:</span><br><span class="line">	<span class="keyword">float</span> <span class="keyword">double</span></span><br><span class="line">字符型:</span><br><span class="line">	<span class="keyword">char</span></span><br><span class="line">布尔型:</span><br><span class="line">	<span class="keyword">boolean</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>详解整型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>   <span class="comment">//在内存中占1个字节,范围从(-128 127)</span></span><br><span class="line"><span class="keyword">short</span>  <span class="comment">//在内存中占2个字节,范围正负3万多</span></span><br><span class="line"><span class="keyword">int</span>	 <span class="comment">//在内存中占4个字节,范围正负21个亿</span></span><br><span class="line"><span class="keyword">long</span>   <span class="comment">//在内存中占8个字节,范围可表示19位数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在java中,如果long型的范围大小不能满足需求,可以用Biginteger来表示,在后续文章中详解</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>详解浮点型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">float</span>	  <span class="comment">//在内存中占4个字节</span></span><br><span class="line"><span class="keyword">double</span>  <span class="comment">//在内存中占8个字节</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//因为double会有丢失精度的问题,所以在金融领域(涉及金钱交易)都会用Bigdecimal来运算,防止丢失精度</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>详解字符型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span>    <span class="comment">//在内存中占1个字节</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>详解布尔类型</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">boolean</span> <span class="comment">//在内存中占1个字节</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>By PC_Q</p>
 
         </div>
         <footer>
             <p class="meta">
                 <span class="byline author vcard">Posted by <span class="fn">PC Qiu</span></span>
-                <time datetime="2021-01-29T03:01:43.000Z" data-updated="true">Fri Jan 29 2021</time>
+                <time datetime="2021-01-29T04:12:32.000Z" data-updated="true">Fri Jan 29 2021</time>
                 
     <span class="categories">
     
-        <a class="category" href="/tags/java/">java</a>
+        <a class="category" href="/tags/java%E5%9F%BA%E7%A1%80/">java基础</a>
     
     </span>
 
@@ -137,7 +156,7 @@
             <div class="sharing">
     
         <a class="twitter-share-button"
-           target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=Java%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0">
+           target="_blank" rel="noopener" href="https://twitter.com/intent/tweet?text=Java%E5%9F%BA%E7%A1%80-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">
             Tweet
         </a>
     
@@ -146,8 +165,6 @@
             <p class="meta">
                 
 
-                
-                <a class="basic-alignment right" href="/" title="Previous Post: Hello World">Hello World »</a>
                 
             </p>
         </footer>
@@ -160,7 +177,7 @@
 <aside class="sidebar">
     <section class="odd">
     <h1>Recent Posts</h1>
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/01/29/Java%E7%AC%AC%E4%B8%80%E7%AF%87%E6%96%87%E7%AB%A0/">Java第一篇文章</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/28/hello-world/">Hello World</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/01/29/Java%E5%9F%BA%E7%A1%80-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Java基础-基本数据类型</a></li></ul>
 </section><section class="even">
     <h1>GitHub Repos</h1>
     <ul id="gh_repos">
