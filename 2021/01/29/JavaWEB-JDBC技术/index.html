@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh_CN"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh_CN"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh_CN"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>JavaWEB-JDBC技术</title>
+
+    <meta name="author" content="PC Qiu">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="https://xpblog.github.io/2021/01/29/JavaWEB-JDBC技术/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+
+    
+<script src="/js/modernizr-2.0.js"></script>
+
+
+    
+<script src="/js/jquery-1.9.1.js"></script>
+
+
+    
+
+    
+<script src="/js/octo.js"></script>
+
+
+    
+<link rel="stylesheet" href="/css/octo.css">
+
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">寒江孤影</a></h1>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="https://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:https://xpblog.github.io/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">首页</a></li>
+        
+            <li><a href="/archives">归档</a></li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">JavaWEB-JDBC技术</h1>
+            <p class="meta">
+                <time datetime="2021-01-29T09:40:52.000Z" data-updated="true">Fri Jan 29 2021</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <h2 id="JDBC技术"><a href="#JDBC技术" class="headerlink" title="JDBC技术"></a>JDBC技术</h2><h3 id="JDBC概念"><a href="#JDBC概念" class="headerlink" title="JDBC概念"></a>JDBC概念</h3><ul>
+<li>JDBC(java database connectivity) Java数据库连接,是一种对数据库操作的Java技术.由Sun公司提供标准,各数据库公司负责实现接口</li>
+</ul>
+<h3 id="JDBC操作MySQL"><a href="#JDBC操作MySQL" class="headerlink" title="JDBC操作MySQL"></a>JDBC操作MySQL</h3><ul>
+<li>jar包 - mysql-connector-java-X.X.X.jar</li>
+<li>步骤 - ①注册驱动  ②获取连接  ③获取执行平台  ④执行SQL  ⑤处理结果集  ⑥关闭资源</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注册驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line"><span class="comment">//获取连接</span></span><br><span class="line">Connection conn = DriverManager.getConnnection(url,username,password);</span><br><span class="line"><span class="comment">//获取执行平台</span></span><br><span class="line">Statement statement = conn.creatStatement();</span><br><span class="line"><span class="comment">//执行sql</span></span><br><span class="line">ResultSet result = statement.executeQuery(sql);</span><br><span class="line"><span class="comment">//处理结果集</span></span><br><span class="line">While(result.next())&#123;</span><br><span class="line">    String id = result.getObject(<span class="string">&quot;字段名&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭连接,释放资源</span></span><br><span class="line">result.close();</span><br><span class="line">statement.close();</span><br><span class="line">conn.close();</span><br></pre></td></tr></table></figure>
+<h3 id="JDBC注意"><a href="#JDBC注意" class="headerlink" title="JDBC注意"></a>JDBC注意</h3><ul>
+<li><p>statement对象执行SQL会有”SQL注入的风险”,所以用PreparedStatement执行SQL</p>
+</li>
+<li><p>处理结果集,如果不知道数据库字段类型,可以用getObject()来接收</p>
+</li>
+<li><p>释放资源,遵循”先开的后关”</p>
+</li>
+</ul>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Posted by <span class="fn">PC Qiu</span></span>
+                <time datetime="2021-01-29T09:40:52.000Z" data-updated="true">Fri Jan 29 2021</time>
+                
+    <span class="categories">
+    
+        <a class="category" href="/tags/JavaWeb/">JavaWeb</a>
+    
+    </span>
+
+            </p>
+            <div class="sharing">
+    
+</div>
+
+            <p class="meta">
+                
+                <a class="basic-alignment left" href="/" title="Previous Post: 每天一道Java面试题01">« 每天一道Java面试题01</a>
+                
+
+                
+                <a class="basic-alignment right" href="/" title="Previous Post: Java基础-基本数据类型">Java基础-基本数据类型 »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Recent Posts</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/01/29/%E6%AF%8F%E5%A4%A9%E4%B8%80%E9%81%93Java%E9%9D%A2%E8%AF%95%E9%A2%9801/">每天一道Java面试题01</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/29/JavaWEB-JDBC%E6%8A%80%E6%9C%AF/">JavaWEB-JDBC技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/29/Java%E5%9F%BA%E7%A1%80-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Java基础-基本数据类型</a></li></ul>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2021 - PC Qiu -
+        <span class="credit">
+</footer>
+
+
+
+</body>
+</html>
