@@ -6,7 +6,7 @@
 <!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh_CN"><!--<![endif]-->
 <head>
     <meta charset="UTF-8">
-    <title>JavaWEB-JDBC技术</title>
+    <title>每天一道Java面试题02</title>
 
     <meta name="author" content="PC Qiu">
 
@@ -16,7 +16,7 @@
     <meta name="MobileOptimized" content="320">
     <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
 
-    <link rel="canonical" href="https://xpblog.github.io/2021/01/29/JavaWEB-JDBC技术/">
+    <link rel="canonical" href="https://xpblog.github.io/2021/01/30/每天一道Java面试题02/">
 
     
         <link rel="alternate" href="/atom.xml" type="application/atom+xml">
@@ -89,40 +89,37 @@
         <div>
     <article class="hentry" role="article">
         <header>
-            <h1 class="entry-title">JavaWEB-JDBC技术</h1>
+            <h1 class="entry-title">每天一道Java面试题02</h1>
             <p class="meta">
-                <time datetime="2021-01-29T09:40:52.000Z" data-updated="true">Fri Jan 29 2021</time>
+                <time datetime="2021-01-30T06:06:58.000Z" data-updated="true">Sat Jan 30 2021</time>
             </p>
         </header>
         <div class="entry-content">
-            <h2 id="JDBC技术"><a href="#JDBC技术" class="headerlink" title="JDBC技术"></a>JDBC技术</h2><h3 id="JDBC概念"><a href="#JDBC概念" class="headerlink" title="JDBC概念"></a>JDBC概念</h3><ul>
-<li>JDBC(java database connectivity) Java数据库连接,是一种对数据库操作的Java技术.由Sun公司提供标准,各数据库公司负责实现接口</li>
-</ul>
+            <h3 id="Servlet的生命周期"><a href="#Servlet的生命周期" class="headerlink" title="Servlet的生命周期"></a>Servlet的生命周期</h3><blockquote>
+<p>回答生命周期的问题,一般有如下套路: 什么时候创建? 什么时候起作用? 什么时候销毁?</p>
+</blockquote>
+<p>对与servlet的生命周期，也可以从以上三方面回答。</p>
 <a id="more"></a>
 
-<h3 id="JDBC操作MySQL"><a href="#JDBC操作MySQL" class="headerlink" title="JDBC操作MySQL"></a>JDBC操作MySQL</h3><ul>
-<li>jar包 - mysql-connector-java-X.X.X.jar</li>
-<li>步骤 - ①注册驱动  ②获取连接  ③获取执行平台  ④执行SQL  ⑤处理结果集  ⑥关闭资源</li>
+<p>Servlet是用于处理从web客户端发送的请求，并作出响应的运行在服务器上的Java小程序。</p>
+<p>servlet是一个单例对象。</p>
+<ul>
+<li><strong>创建：</strong>当浏览器第一次访问到这个servlet时，服务器通过反射方式创建出这个servlet，并执行init（）方法，完成初始化。同时执行一次service（）方法。</li>
+<li><strong>起作用：</strong>当请求访问到这个servlet时候，调用service（）方法</li>
+<li><strong>销毁：</strong>当tomcat关闭的时候或者项目被移除的时候，servlet销毁，销毁之前调用destroy（）方法</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//注册驱动</span></span><br><span class="line">Class.forName(<span class="string">&quot;com.mysql.jdbc.Driver&quot;</span>);</span><br><span class="line"><span class="comment">//获取连接</span></span><br><span class="line">Connection conn = DriverManager.getConnnection(url,username,password);</span><br><span class="line"><span class="comment">//获取执行平台</span></span><br><span class="line">Statement statement = conn.creatStatement();</span><br><span class="line"><span class="comment">//执行sql</span></span><br><span class="line">ResultSet result = statement.executeQuery(sql);</span><br><span class="line"><span class="comment">//处理结果集</span></span><br><span class="line">While(result.next())&#123;</span><br><span class="line">    String id = result.getObject(<span class="string">&quot;字段名&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//关闭连接,释放资源</span></span><br><span class="line">result.close();</span><br><span class="line">statement.close();</span><br><span class="line">conn.close();</span><br></pre></td></tr></table></figure>
-<h3 id="JDBC注意"><a href="#JDBC注意" class="headerlink" title="JDBC注意"></a>JDBC注意</h3><ul>
-<li><p>statement对象执行SQL会有”SQL注入的风险”,所以用PreparedStatement执行SQL</p>
-</li>
-<li><p>处理结果集,如果不知道数据库字段类型,可以用getObject()来接收</p>
-</li>
-<li><p>释放资源,遵循”先开的后关”</p>
-</li>
-</ul>
+<h3 id="Servlet接口"><a href="#Servlet接口" class="headerlink" title="Servlet接口"></a>Servlet接口</h3><p>Servlet是一个接口，里面有五个抽象方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">init() <span class="comment">//初始化方法，当servlet被创建的时候调用，且只调用一次</span></span><br><span class="line">getServletConfig()  <span class="comment">//获取servlet的配置信息</span></span><br><span class="line">service() <span class="comment">//处理请求和响应的方法</span></span><br><span class="line">getServletInfo() <span class="comment">//获取一些关于servlet的信息</span></span><br><span class="line">destroy() <span class="comment">//servlet销毁前调用的方法</span></span><br></pre></td></tr></table></figure>
 
         </div>
         <footer>
             <p class="meta">
                 <span class="byline author vcard">Posted by <span class="fn">PC Qiu</span></span>
-                <time datetime="2021-01-29T09:40:52.000Z" data-updated="true">Fri Jan 29 2021</time>
+                <time datetime="2021-01-30T06:06:58.000Z" data-updated="true">Sat Jan 30 2021</time>
                 
     <span class="categories">
     
-        <a class="category" href="/tags/JavaWeb/">JavaWeb</a>
+        <a class="category" href="/tags/Java%E9%9D%A2%E8%AF%95/">Java面试</a>
     
     </span>
 
@@ -133,11 +130,9 @@
 
             <p class="meta">
                 
-                <a class="basic-alignment left" href="/" title="Previous Post: 每天一道Java面试题01">« 每天一道Java面试题01</a>
-                
 
                 
-                <a class="basic-alignment right" href="/" title="Previous Post: Java基础-基本数据类型">Java基础-基本数据类型 »</a>
+                <a class="basic-alignment right" href="/" title="Previous Post: 每天一道Java面试题01">每天一道Java面试题01 »</a>
                 
             </p>
         </footer>
