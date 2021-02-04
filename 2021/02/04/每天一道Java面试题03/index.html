@@ -1,0 +1,217 @@
+
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7" lang="zh_CN"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8" lang="zh_CN"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="zh_CN"><!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <title>每天一道Java面试题03</title>
+
+    <meta name="author" content="PC Qiu">
+
+    <link rel="shortcut icon" href="/images/favicon.png">
+
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+    <link rel="canonical" href="https://xpblog.github.io/2021/02/04/每天一道Java面试题03/">
+
+    
+        <link rel="alternate" href="/atom.xml" type="application/atom+xml">
+    
+
+    
+
+    
+<script src="/js/modernizr-2.0.js"></script>
+
+
+    
+<script src="/js/jquery-1.9.1.js"></script>
+
+
+    
+
+    
+<script src="/js/octo.js"></script>
+
+
+    
+<link rel="stylesheet" href="/css/octo.css">
+
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    <link href="https://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet"
+          type="text/css">
+
+    
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+<body>
+
+<header role="banner">
+    <hgroup>
+        <h1><a href="/">寒江孤影</a></h1>
+        
+    </hgroup>
+</header>
+
+<nav role="navigation">
+    
+        <ul class="subscription" data-subscription="rss">
+            <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+        </ul>
+    
+
+    <form action="https://google.com/search" method="get">
+        <fieldset role="search">
+            <input type="hidden" name="q" value="site:https://xpblog.github.io/">
+            <input class="search" type="text" name="q" results="0" placeholder="Search">
+        </fieldset>
+    </form>
+
+    <ul class="main-navigation">
+        
+            <li><a href="/">首页</a></li>
+        
+            <li><a href="/archives">归档</a></li>
+        
+    </ul>
+</nav>
+
+
+<div id="main">
+    <div id="content">
+        <div>
+    <article class="hentry" role="article">
+        <header>
+            <h1 class="entry-title">每天一道Java面试题03</h1>
+            <p class="meta">
+                <time datetime="2021-02-04T02:25:26.000Z" data-updated="true">Thu Feb 04 2021</time>
+            </p>
+        </header>
+        <div class="entry-content">
+            <h3 id="事务的相关问题"><a href="#事务的相关问题" class="headerlink" title="事务的相关问题"></a>事务的相关问题</h3><ul>
+<li><p>事务的特性</p>
+<ul>
+<li><p>ACID</p>
+</li>
+<li><p><strong>1、原子性</strong></p>
+<p>即不可分割，事务要么全部被执行，要么全部不执行</p>
+<p><strong>2、一致性</strong></p>
+<p>事务的执行使得数据库从一种正确状态转换成另外一种正确状态</p>
+<p><strong>3、隔离性</strong></p>
+<p>在事务正确提交之前，不允许把事务对该数据的改变提供给任何其他事务，即在事务正确提交之前，它可能的结果不应该显示给其他事务</p>
+<p><strong>4、持久性</strong></p>
+<p>事务正确提交之后，其结果将永远保存在数据库之中，即使在事务提交之后有了其他故障，事务的处理结果也会得到保存</p>
+</li>
+</ul>
+</li>
+<li><p>并发下事务可能出现的问题</p>
+<ul>
+<li><p><strong>1、脏读</strong></p>
+<p>所谓脏读，就是指<strong>事务A读到了事务B还没有提交的数据</strong>。</p>
+<p>比如银行取钱，事务A开启事务，此时切换到事务B，事务B开启事务–&gt;取走100元，此时切换回事务A，事务A读取的肯定是数据库里面的原始数据，因为事务B取走了100块钱，并没有提交，数据库里面的账务余额肯定还是原始余额，这就是脏读</p>
+<p><strong>2、不可重复读</strong></p>
+<p>所谓不可重复读，就是指<strong>在一个事务里面读取了两次某个数据，读出来的数据不一致</strong>。</p>
+<p>还是以银行取钱为例，事务A开启事务–&gt;查出银行卡余额为1000元，此时切换到事务B事务B开启事务–&gt;事务B取走100元–&gt;提交，数据库里面余额变为900元，此时切换回事务A，事务A再查一次查出账户余额为900元，这样对事务A而言，在同一个事务内两次读取账户余额数据不一致，这就是不可重复读。</p>
+<p><strong>3、幻读</strong></p>
+<p>所谓幻读，就是指<strong>在一个事务里面的操作中发现了未被操作的数据</strong>。</p>
+<p>比如学生信息，事务A开启事务–&gt;修改所有学生当天签到状况为false，此时切换到事务B，事务B开启事务–&gt;事务B插入了一条学生数据，此时切换回事务A，事务A提交的时候发现了一条自己没有修改过的数据，这就是幻读，就好像发生了幻觉一样。幻读出现的前提是并发的事务中有事务发生了插入、删除操作。</p>
+</li>
+</ul>
+</li>
+<li><p>事务的隔离级别</p>
+<ul>
+<li><p>数据库规范规定了4种隔离级别，分别用于描述两个事务并发的所有情况。</p>
+<ul>
+<li><strong>read uncommitted</strong> 读未提交，一个事务可以读到另一个事务没有提交的数据。<ul>
+<li>存在：3个问题（脏读、不可重复读、幻读）。</li>
+<li>解决：0个问题</li>
+</ul>
+</li>
+<li><strong>read committed</strong> 读已提交，一个事务读到另一个事务已经提交的数据。<ul>
+<li>存在：2个问题（不可重复读(update 操作)、幻读）。</li>
+<li>解决：1个问题（脏读）</li>
+</ul>
+</li>
+<li><strong>repeatable read</strong> 可重复读，在一个事务中读到的数据始终保持一致，无论另一个事务是否提交。<ul>
+<li>存在：1个问题（幻读）,针对  insert操作</li>
+<li>解决：2个问题（脏读、不可重复读）</li>
+</ul>
+</li>
+<li><strong>serializable 串行化</strong>，同时只能执行一个事务，相当于事务中的单线程。<ul>
+<li>存在：0个问题。</li>
+<li>解决：3个问题（脏读、不可重复读、幻读）</li>
+<li></li>
+</ul>
+</li>
+<li>默认的隔离级别<ul>
+<li>mysql：<strong>repeatable read</strong></li>
+<li>oracle: read commit<ul>
+<li>oracle支持的隔离级别：read only ， read commited       serializable </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+        <footer>
+            <p class="meta">
+                <span class="byline author vcard">Posted by <span class="fn">PC Qiu</span></span>
+                <time datetime="2021-02-04T02:25:26.000Z" data-updated="true">Thu Feb 04 2021</time>
+                
+    <span class="categories">
+    
+        <a class="category" href="/tags/Java%E9%9D%A2%E8%AF%95/">Java面试</a>
+    
+    </span>
+
+            </p>
+            <div class="sharing">
+    
+</div>
+
+            <p class="meta">
+                
+
+                
+                <a class="basic-alignment right" href="/" title="Previous Post: 每天一道Java面试题02">每天一道Java面试题02 »</a>
+                
+            </p>
+        </footer>
+    </article>
+
+    
+
+</div>
+
+<aside class="sidebar">
+    <section class="odd">
+    <h1>Recent Posts</h1>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/02/04/%E6%AF%8F%E5%A4%A9%E4%B8%80%E9%81%93Java%E9%9D%A2%E8%AF%95%E9%A2%9803/">每天一道Java面试题03</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/30/%E6%AF%8F%E5%A4%A9%E4%B8%80%E9%81%93Java%E9%9D%A2%E8%AF%95%E9%A2%9802/">每天一道Java面试题02</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/29/%E6%AF%8F%E5%A4%A9%E4%B8%80%E9%81%93Java%E9%9D%A2%E8%AF%95%E9%A2%9801/">每天一道Java面试题01</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/29/JavaWEB-JDBC%E6%8A%80%E6%9C%AF/">JavaWEB-JDBC技术</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/01/29/Java%E5%9F%BA%E7%A1%80-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">Java基础-基本数据类型</a></li></ul>
+</section>
+</aside>
+
+    </div>
+</div>
+
+<footer role="contentinfo">
+    <p>
+        Copyright © 2021 - PC Qiu -
+        <span class="credit">
+</footer>
+
+
+
+</body>
+</html>
